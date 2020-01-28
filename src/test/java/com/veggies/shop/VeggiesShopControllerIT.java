@@ -44,7 +44,6 @@ public class VeggiesShopControllerIT {
     private static final int ORDER_NUMBER_CELL_INDEX = 1;
     private static final int ORDER_NUMBER_ROW_INDEX = 1;
     private static final String SHEET_NAME = "ORDER INFO";
-    //todo change path to /templates/veggies-shop.xlsx -> currently - problems with project settings
     private static final String TEMPLATE_FILE_PATH = "src/test/binaries/templates/veggies-shop.xlsx";
 
     @TestConfiguration
@@ -69,7 +68,7 @@ public class VeggiesShopControllerIT {
         writeInvoiceData(invoiceWorkbook);
         byte[] workbookBytes = asByteArray(invoiceWorkbook);
 
-        //When
+        // When
         postMultipartFileFor(workbookBytes, ORDER_NUMBER, key);
 
         String generatedFilePath = ATTACHMENT_FILE_DIRECTORY + key;
