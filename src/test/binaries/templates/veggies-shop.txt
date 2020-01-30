@@ -1,1 +1,0 @@
-A new Invoice for the Order Number: 9998889991 has been successfully submitted.

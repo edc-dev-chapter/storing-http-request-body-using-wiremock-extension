@@ -12,5 +12,4 @@ public class VeggiesShopConfigurationCustomizer implements WireMockConfiguration
     public void customize(WireMockConfiguration configuration) {
         configuration.extensions(AttachmentResponseTransformer.class);
     }
-
 }

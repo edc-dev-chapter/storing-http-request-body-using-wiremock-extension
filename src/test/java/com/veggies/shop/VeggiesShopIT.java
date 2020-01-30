@@ -32,14 +32,14 @@ import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 @AutoConfigureWireMock(port = 9080)
 @SpringBootTest
 @TestInstance(PER_CLASS)
-public class VeggiesShopControllerIT {
+public class VeggiesShopIT {
 
     private static final String API_PARAM_ATTACHMENT_KEY = "attachmentStoreKey";
     private static final String API_PARAM_UPLOADED_ATTACHMENT = "uploadedAttachment";
     private static final String ATTACHMENT_FILE_DIRECTORY = "target/";
     private static final String ATTACHMENT_NAME = "Invoice_%s.txt";
     private static final String ATTACHMENT_SERVICE_ENDPOINT = "http://localhost:9080/api/invoices/";
-    private static final String ORDER_NUMBER = "9998889991";
+    private static final String ORDER_NUMBER = "1234";
     private static final String TEMPLATE_FILE_PATH = "src/test/binaries/templates/veggies-shop.txt";
 
     @TestConfiguration
@@ -70,7 +70,7 @@ public class VeggiesShopControllerIT {
         BufferedReader reader = new BufferedReader(new FileReader(generatedInvoice));
         String actualInvoiceContent = reader.readLine();
         String expectedInvoiceContent =
-                "A new Invoice for the Order Number: 9998889991 has been successfully submitted.";
+                "A new Invoice for the Order Number: 1234 has been successfully submitted.";
 
         // Then
         assertEquals(expectedInvoiceContent, actualInvoiceContent);
