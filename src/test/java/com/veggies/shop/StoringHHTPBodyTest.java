@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 @AutoConfigureWireMock(port = 9080)
 @SpringBootTest
 @TestInstance(PER_CLASS)
-public class VeggiesShopIT {
+public class StoringHHTPBodyTest {
 
     private static final String API_PARAM_ATTACHMENT_KEY = "attachmentStoreKey";
     private static final String API_PARAM_UPLOADED_ATTACHMENT = "uploadedAttachment";

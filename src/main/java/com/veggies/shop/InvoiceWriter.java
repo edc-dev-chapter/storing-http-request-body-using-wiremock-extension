@@ -6,9 +6,9 @@ import java.io.PrintWriter;
 
 public class InvoiceWriter {
 
+    private boolean appendToFile = false;
     private final String INVOICE_CONTENT_TEMPLATE =
             "A new Invoice for the Order Number: %s has been successfully submitted.";
-    private boolean appendToFile = false;
     private String path;
 
     public InvoiceWriter(String path) {

@@ -1,11 +1,10 @@
 package com.veggies.shop.wiremock.extension;
 
-import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
 import com.github.tomakehurst.wiremock.common.FileSource;
 import com.github.tomakehurst.wiremock.extension.Parameters;
-import com.github.tomakehurst.wiremock.extension.ResponseDefinitionTransformer;
+import com.github.tomakehurst.wiremock.extension.ResponseTransformer;
 import com.github.tomakehurst.wiremock.http.Request;
-import com.github.tomakehurst.wiremock.http.ResponseDefinition;
+import com.github.tomakehurst.wiremock.http.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
@@ -15,7 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 @Slf4j
-public class AttachmentResponseTransformer extends ResponseDefinitionTransformer {
+public class AttachmentResponseTransformer extends ResponseTransformer {
 
     private static final boolean APPLY_GLOBALLY = false;
     private static final String FILE_PATH = "target/";
@@ -33,12 +32,12 @@ public class AttachmentResponseTransformer extends ResponseDefinitionTransformer
     }
 
     @Override
-    public ResponseDefinition transform(Request request, ResponseDefinition response, FileSource files,
-                                        Parameters parameters) {
+    public Response transform(Request request, Response response, FileSource files,
+                              Parameters parameters) {
         log.info("Saving uploaded attachment");
         saveUploadedAttachment(request);
 
-        return new ResponseDefinitionBuilder().build();
+        return new Response.Builder().build();
     }
 
     private String filenameFrom(Request.Part part) {
