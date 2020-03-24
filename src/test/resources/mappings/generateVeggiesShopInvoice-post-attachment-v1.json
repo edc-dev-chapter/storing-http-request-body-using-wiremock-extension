@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "POST",
-    "urlPath": "/api/invoices/9998889991"
+    "urlPath": "/api/invoices/1234"
   },
   "response": {
     "status": 200,

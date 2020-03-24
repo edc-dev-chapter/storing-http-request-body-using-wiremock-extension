@@ -6,11 +6,10 @@ import org.springframework.cloud.contract.wiremock.WireMockConfigurationCustomiz
 import org.springframework.stereotype.Component;
 
 @Component
-public class VeggiesShopConfigurationCustomizer implements WireMockConfigurationCustomizer {
+public class StoringHTTPBodyConfigurationCustomizer implements WireMockConfigurationCustomizer {
 
     @Override
     public void customize(WireMockConfiguration configuration) {
         configuration.extensions(AttachmentResponseTransformer.class);
     }
-
 }
