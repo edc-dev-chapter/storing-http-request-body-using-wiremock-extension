@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 @AutoConfigureWireMock(port = 9080)
 @SpringBootTest
 @TestInstance(PER_CLASS)
-public class StoringHHTPBodyTest {
+public class StoringHTTPBodyTest {
 
     private static final String API_PARAM_ATTACHMENT_KEY = "attachmentStoreKey";
     private static final String API_PARAM_UPLOADED_ATTACHMENT = "uploadedAttachment";
@@ -57,6 +57,8 @@ public class StoringHHTPBodyTest {
     @Test
     void testGenerateInvoice() throws IOException {
         // Given
+        String expectedInvoiceContent =
+                "A new Invoice for the Order Number: 1234 has been successfully submitted.";
         String key = String.format(ATTACHMENT_NAME, ORDER_NUMBER);
         InvoiceWriter invoiceWriter = new InvoiceWriter(TEMPLATE_FILE_PATH);
         invoiceWriter.write(ORDER_NUMBER);
@@ -67,14 +69,10 @@ public class StoringHHTPBodyTest {
 
         String generatedFilePath = ATTACHMENT_FILE_DIRECTORY + key;
         File generatedInvoice = new File(generatedFilePath);
-        BufferedReader reader = new BufferedReader(new FileReader(generatedInvoice));
-        String actualInvoiceContent = reader.readLine();
-        String expectedInvoiceContent =
-                "A new Invoice for the Order Number: 1234 has been successfully submitted.";
+        String actualInvoiceContent = readFileToString(generatedInvoice);
 
         // Then
         assertEquals(expectedInvoiceContent, actualInvoiceContent);
-
         generatedInvoice.delete();
     }
 
@@ -103,6 +101,21 @@ public class StoringHHTPBodyTest {
                                       .toUri();
 
         restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(multiValueMap), String.class);
+    }
+
+    private String readFileToString(File file) throws IOException {
+        String fileContent;
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            StringBuilder builder = new StringBuilder();
+            String line = reader.readLine();
+
+            while (line != null) {
+                builder.append(line);
+                line = reader.readLine();
+            }
+            fileContent = builder.toString();
+        }
+        return fileContent;
     }
 
     @EqualsAndHashCode(callSuper = false)
